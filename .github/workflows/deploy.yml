@@ -7,8 +7,13 @@ jobs:
     steps:
       - name: Prepare environments
         run: |
-          echo "APP_NAME=Application-${{ github.ref_name }}" >> $GITHUB_ENV
-          echo "ENV_NAME=Environment-${{ github.ref_name }}" >> $GITHUB_ENV
+          if [ "${{ github.ref_name }}" == "main" ]; then
+            echo "APP_POSTFIX=''" >> $GITHUB_ENV
+            echo "ENV_POSTFIX='-vev'" >> $GITHUB_ENV
+          else
+            echo "APP_POSTFIX='-${{ github.ref_name }}'" >> $GITHUB_ENV
+            echo "ENV_POSTFIX='-${{ github.ref_name }}'" >> $GITHUB_ENV
+          fi
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
@@ -34,4 +39,4 @@ jobs:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
       - name: "ENV value"
-        run: echo "value -> ${{ env.APP_NAME }}, ${{ env.ENV_NAME }}"
+        run: echo "value -> ${{ env.APP_POSTFIX }}, ${{ env.ENV_POSTFIX }}"
