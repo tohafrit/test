@@ -9,6 +9,10 @@ jobs:
   dump_contexts_to_log:
     runs-on: ubuntu-latest
     steps:
+      - name: Prepare environments
+        run: |
+          echo "APP_NAME=Application-${{ github.ref_name }}" >> $GITHUB_ENV
+          echo "ENV_NAME=Environment-${{ github.ref_name }}" >> $GITHUB_ENV
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
@@ -34,4 +38,4 @@ jobs:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
       - name: "ENV value"
-        run: echo "value -> ${{ env.name.NAME }}"
+        run: echo "value -> ${{ env.APP_NAME }}, ${{ env.ENV_NAME }}"
