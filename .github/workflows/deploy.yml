@@ -8,11 +8,11 @@ jobs:
       - name: Prepare environments
         run: |
           if [ "${{ github.ref_name }}" == "main" ]; then
-            echo "APP_POSTFIX=''" >> $GITHUB_ENV
-            echo "ENV_POSTFIX='-dev'" >> $GITHUB_ENV
+            echo "APP_POSTFIX=" >> $GITHUB_ENV
+            echo "ENV_POSTFIX=-dev" >> $GITHUB_ENV
           else
-            echo "APP_POSTFIX='-${{ github.ref_name }}'" >> $GITHUB_ENV
-            echo "ENV_POSTFIX='-${{ github.ref_name }}'" >> $GITHUB_ENV
+            echo "APP_POSTFIX=-${{ github.ref_name }}" >> $GITHUB_ENV
+            echo "ENV_POSTFIX=-${{ github.ref_name }}" >> $GITHUB_ENV
           fi
       - name: Dump GitHub context
         env:
@@ -39,4 +39,4 @@ jobs:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
       - name: "ENV value"
-        run: echo "value -> ${{ env.APP_POSTFIX }}, ${{ env.ENV_POSTFIX }}"
+        run: echo "value -> casino${{ env.APP_POSTFIX }}, Environment${{ env.ENV_POSTFIX }}"
