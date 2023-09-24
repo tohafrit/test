@@ -1,10 +1,11 @@
 name: Context testing
-on: push
-inputs:
-  apps:
-    casino:
-      name: "Application-${{ github.ref_name }}"
-      env: "Environment-${{ github.ref_name }}"
+on: 
+  push:
+    inputs:
+      apps:
+        casino:
+          name: "Application-${{ github.ref_name }}"
+          env: "Environment-${{ github.ref_name }}"
 env:
   # Setting an environment variable with the value of a configuration variable
   env_var: ${{ vars.ENV_CONTEXT_VAR }}
