@@ -9,7 +9,7 @@ jobs:
         run: |
           if [ "${{ github.ref_name }}" == "main" ]; then
             echo "APP_POSTFIX=''" >> $GITHUB_ENV
-            echo "ENV_POSTFIX='-vev'" >> $GITHUB_ENV
+            echo "ENV_POSTFIX='-dev'" >> $GITHUB_ENV
           else
             echo "APP_POSTFIX='-${{ github.ref_name }}'" >> $GITHUB_ENV
             echo "ENV_POSTFIX='-${{ github.ref_name }}'" >> $GITHUB_ENV
