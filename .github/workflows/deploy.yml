@@ -1,8 +1,9 @@
 name: Context testing
 on: push
 env:
-  # Setting an environment variable with the value of a configuration variable
-  NAME: "Application-${{ github.ref_name }}"
+  NAME: [
+    name: "Application-${{ github.ref_name }}"
+  ]
 
 jobs:
   dump_contexts_to_log:
@@ -33,4 +34,4 @@ jobs:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
       - name: "ENV value"
-        run: echo "value -> ${{ env.NAME }}"
+        run: echo "value -> ${{ env.name.NAME }}"
