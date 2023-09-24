@@ -39,4 +39,4 @@ jobs:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
       - name: "ENV value"
-        run: echo "value -> ${{ env.APP_POSTFIX }}, ${{ env.ENV_POSTFIX }}"
+        run: echo "value -> casino${{ env.APP_POSTFIX }}, ${{ env.ENV_POSTFIX }}"
