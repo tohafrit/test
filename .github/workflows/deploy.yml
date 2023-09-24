@@ -33,4 +33,4 @@ jobs:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
       - name: "Default value"
-        run: echo "value -> ${{ GITHUB_REF_NAME }}"
+        run: echo "value -> ${{ github.ref_name }}"
