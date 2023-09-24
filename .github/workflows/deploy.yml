@@ -1,9 +1,5 @@
 name: Context testing
 on: push
-env:
-  NAME: [
-    name: "Application-${{ github.ref_name }}"
-  ]
 
 jobs:
   dump_contexts_to_log:
