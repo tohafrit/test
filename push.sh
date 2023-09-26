@@ -5,3 +5,4 @@ git commit -m 'test'
 git push origin main
 
 git status
+git log --oneline
