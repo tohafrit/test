@@ -7,32 +7,32 @@ on:
         description: 'Select a remote'
         required: true
         options:
-          24casino: 24casino
-          24pokies: 24pokies
-          4crownscasino: 4crownscasino
-          arescasino: arescasino
-          bigwins: bigwins
-          casinohermes: casinohermes
-          cherryfiesta: cherryfiesta
-          chilli777: chilli777
-          europe777: europe777
-          fireslots: fireslots
-          goldenwin: goldenwin
-          goldenpharaoh: goldenpharaoh
-          iwinfortune: iwinfortune
-          lovecasino: lovecasino
-          luckywins: luckywins
-          magicwin: magicwin
-          maximalwin: maximalwin
-          mrsloty: mrsloty
-          oceanbreeze: oceanbreeze
-          rougecasino: rougecasino
-          spicyjackpots: spicyjackpots
-          spinsdeluxe: spinsdeluxe
-          superb: superb
-          winnercasino: winnercasino
-          bigacasino: bigacasino
-          luckycharms: luckycharms
+          - 24casino
+          - 24pokies
+          - 4crownscasino
+          - arescasino
+          - bigwins
+          - casinohermes
+          - cherryfiesta
+          - chilli777
+          - europe777
+          - fireslots
+          - goldenwin
+          - goldenpharaoh
+          - iwinfortune
+          - lovecasino
+          - luckywins
+          - magicwin
+          - maximalwin
+          - mrsloty
+          - oceanbreeze
+          - rougecasino
+          - spicyjackpots
+          - spinsdeluxe
+          - superb
+          - winnercasino
+          - bigacasino
+          - luckycharms
 
 jobs:
   build:
