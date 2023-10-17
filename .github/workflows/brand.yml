@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       remote:
+        type: choice
         description: 'Select a remote'
         required: true
         options:
