@@ -1,0 +1,134 @@
+name: Deployment for the selected brand
+
+on: 
+  workflow_dispatch:
+    inputs:
+      remote:
+        description: 'Select a remote'
+        required: true
+        options:
+          24casino: 24casino
+          24pokies: 24pokies
+          4crownscasino: 4crownscasino
+          arescasino: arescasino
+          bigwins: bigwins
+          casinohermes: casinohermes
+          cherryfiesta: cherryfiesta
+          chilli777: chilli777
+          europe777: europe777
+          fireslots: fireslots
+          goldenwin: goldenwin
+          goldenpharaoh: goldenpharaoh
+          iwinfortune: iwinfortune
+          lovecasino: lovecasino
+          luckywins: luckywins
+          magicwin: magicwin
+          maximalwin: maximalwin
+          mrsloty: mrsloty
+          oceanbreeze: oceanbreeze
+          rougecasino: rougecasino
+          spicyjackpots: spicyjackpots
+          spinsdeluxe: spinsdeluxe
+          superb: superb
+          winnercasino: winnercasino
+          bigacasino: bigacasino
+          luckycharms: luckycharms
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Deploy to brand
+        run: |
+          case ${{ github.event.inputs.remote }} in
+            24casino)
+              host="git@172.16.0.116"
+              ;;
+            24pokies)
+              host="git@172.16.0.118"
+              ;;
+            4crownscasino)
+              host="git@172.16.0.110"
+              ;;
+            arescasino)
+              host="git@172.16.0.47"
+              ;;
+            bigwins)
+              host="git@172.16.0.33"
+              ;;
+            casinohermes)
+              host="git@172.16.0.52"
+              ;;
+            cherryfiesta)
+              host="git@172.16.0.139"
+              ;;
+            chilli777)
+              host="git@172.16.0.129"
+              ;;
+            europe777)
+              host="git@172.16.0.51"
+              ;;
+            fireslots)
+              host="git@172.16.0.48"
+              ;;
+            goldenwin)
+              host="git@172.16.0.10"
+              ;;
+            goldenpharaoh)
+              host="git@172.16.0.45"
+              ;;
+            iwinfortune)
+              host="git@172.16.0.95"
+              ;;
+            lovecasino)
+              host="git@172.16.0.39"
+              ;;
+            luckywins)
+              host="git@172.16.0.81"
+              ;;
+            magicwin)
+              host="git@172.16.0.91"
+              ;;
+            maximalwin)
+              host="git@172.16.0.103"
+              ;;
+            mrsloty)
+              host="git@172.16.0.132"
+              ;;
+            oceanbreeze)
+              host="git@172.16.0.115"
+              ;;
+            rougecasino)
+              host="git@172.16.0.131"
+              ;;
+            spicyjackpots)
+              host="git@172.16.0.6"
+              ;;
+            spinsdeluxe)
+              host="git@172.16.0.102"
+              ;;
+            superb)
+              host="git@172.16.0.44"
+              ;;
+            winnercasino)
+              host="git@172.16.0.106"
+              ;;
+            bigacasino)
+              host="git@172.16.0.108"
+              ;;
+            luckycharms)
+              host="git@172.16.0.2"
+              ;;
+            *)
+              echo "Invalid remote selected"
+              exit 1
+              ;;
+          esac
+          echo "${{ github.event.inputs.remote }} "
+          echo "$host"
+          echo "==================================="
