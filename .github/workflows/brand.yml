@@ -1,8 +1,5 @@
 name: Deployment for the selected brand
 
-env:
-  INVALIDATE_REQUIRED: false
-
 on: 
   workflow_dispatch:
     inputs:
@@ -137,22 +134,14 @@ jobs:
           echo "$host"
           echo "==================================="
 
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-
-      - name: Check for changes in specific folders
-        run: |
-          changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
-          for file in $changed_files; do
-            if [[ $file == scripts/* ]]; then
-              echo "JavaScript files have changed, cache invalidation is required."
-              echo "INVALIDATE_REQUIRED=true" >> "$GITHUB_ENV"
-              break
-            fi
-          done
+      - name: Get all js files that have changed
+        id: changed-files-script
+        uses: tj-actions/changed-files@v39
+        with:
+          files_yaml: |
+            scripts:
+              - '**/*.js'
 
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install jq -y
-        if: ${{ env.INVALIDATE_REQUIRED == true }}
+        if: steps.changed-files-script.outputs.test_any_changed == 'true' 
