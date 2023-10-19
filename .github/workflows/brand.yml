@@ -150,4 +150,4 @@ jobs:
 
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install jq -y
-        if: ${{ env.INVALIDATE_REQUIRED }}
+        if: ${{ env.INVALIDATE_REQUIRED == true }}
