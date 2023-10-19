@@ -137,9 +137,14 @@ jobs:
           echo "$host"
           echo "==================================="
 
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
       - name: Check for changes in specific folders
         run: |
-          changed_files=$(git diff --name-only HEAD^ HEAD)
+          changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
           for file in $changed_files; do
             if [[ $file == scripts/* ]]; then
               echo "JavaScript files have changed, cache invalidation is required."
