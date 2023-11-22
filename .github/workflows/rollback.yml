@@ -9,6 +9,12 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
 
+      - name: Get latest tag
+        run: |
+          git fetch --tags
+          TAG=$(git describe --tags --abbrev=0)
+          echo "List tag is $TAG"
+
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
