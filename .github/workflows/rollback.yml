@@ -13,7 +13,7 @@ jobs:
         run: |
           git fetch --tags
           TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
-          echo "List tag is $TAG"
+          echo "Last tag is $TAG"
 
       # - name: Compare tags in a specific directory
       #   run: git diff ${{ github.event.inputs.base_tag }} ${{ github.event.inputs.compare_tag }} -- path/to/directory
