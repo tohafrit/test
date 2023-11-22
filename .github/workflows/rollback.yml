@@ -20,6 +20,8 @@ jobs:
       - name: Compare tags in a specific directory
         run: git diff ${{ github.ref_name }} $LAST_TAG -- scripts/
 
+      
+
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
