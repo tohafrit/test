@@ -1,0 +1,90 @@
+name: Rollback
+run-name: Rollback apps by @${{ github.actor }}
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Generate deployment package
+        run: zip -r deploy.zip . -x '*.git*'
+
+      - name: Get timestamp
+        uses: gerred/current-time@v1.0.0
+        id: current-time
+
+      - name: Run string replace
+        uses: frabert/replace-string-action@v2
+        id: format-time
+        with:
+          pattern: '[:\.]+'
+          string: "${{ steps.current-time.outputs.time }}"
+          replace-with: "-"
+          flags: "g"
+
+      - name: Deploy to EB siteapi
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          application_name: siteapi
+          environment_name: Siteapi-env
+          version_label: "siteapi-version-${{ steps.format-time.outputs.replaced }}"
+          region: eu-central-1
+          use_existing_version_if_available: true
+          version_description: ${{ github.SHA }}
+          deployment_package: deploy.zip
+
+      - name: Deployed!
+        run: echo App deployed to EB siteapi
+
+      - name: Deploy to EB adminapi
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          application_name: adminapi
+          environment_name: Adminapi-env
+          version_label: "adminapi-version-${{ steps.format-time.outputs.replaced }}"
+          region: eu-central-1
+          use_existing_version_if_available: true
+          version_description: ${{ github.SHA }}
+          deployment_package: deploy.zip
+
+      - name: Deployed!
+        run: echo App deployed to EB adminapi
+
+      - name: Deploy to EB casinoapi
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          application_name: casinoapi
+          environment_name: Casinoapi-env
+          version_label: "casinoapi-version-${{ steps.format-time.outputs.replaced }}"
+          region: eu-central-1
+          use_existing_version_if_available: true
+          version_description: ${{ github.SHA }}
+          deployment_package: deploy.zip
+
+      - name: Deployed!
+        run: echo App deployed to EB casinoapi
+
+      - name: Deploy to EB paymentapi
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          application_name: paymentapi
+          environment_name: Paymentapi-env
+          version_label: "paymentapi-version-${{ steps.format-time.outputs.replaced }}"
+          region: eu-central-1
+          use_existing_version_if_available: true
+          version_description: ${{ github.SHA }}
+          deployment_package: deploy.zip
+
+      - name: Deployed!
+        run: echo App deployed to EB paymentapi
