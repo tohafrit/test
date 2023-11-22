@@ -27,6 +27,7 @@ jobs:
         run: echo "php yii migrate/down ${{ env.MIGRATION_NUMBER }} --interactive=0"
 
       - name: Add content for migrate/down
+        if: ${{ github.ref_name != env.LAST_TAG }}
         run: |
           echo '  999-migrate:' >> .ebextensions/01-composer-install.config
           echo '    command: "php yii migrate/down ${{ env.MIGRATION_NUMBER }} --interactive=0"' >> .ebextensions/01-composer-install.config
