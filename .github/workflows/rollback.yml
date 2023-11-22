@@ -15,6 +15,9 @@ jobs:
           TAG=$(git describe --tags --abbrev=0)
           echo "List tag is $TAG"
 
+      # - name: Compare tags in a specific directory
+      #   run: git diff ${{ github.event.inputs.base_tag }} ${{ github.event.inputs.compare_tag }} -- path/to/directory
+
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
