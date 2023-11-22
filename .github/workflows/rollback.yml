@@ -19,7 +19,7 @@ jobs:
 
       - name: Count changed files in a specific directory
         run: |
-          file_count=$(git diff ${{ github.ref_name }} ${{ env.LAST_TAG }} -- scripts/ | wc -l)
+          file_count=$(git diff --name-only ${{ github.ref_name }} ${{ env.LAST_TAG }} -- scripts/ | wc -l)
           echo "Number of changed files: $file_count"
 
       - name: Dump GitHub context
