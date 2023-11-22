@@ -15,10 +15,10 @@ jobs:
         run: |
           git fetch --tags
           TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
-          echo "LAST_TAG=-$TAG" >> $GITHUB_ENV
+          echo "LAST_TAG=$TAG" >> $GITHUB_ENV
 
       - name: Compare tags in a specific directory
-        run: git diff ${{ github.ref_name }} $LAST_TAG -- scripts/
+        run: git diff ${{ github.ref_name }} ${{ env.LAST_TAG }} -- scripts/
 
       
 
