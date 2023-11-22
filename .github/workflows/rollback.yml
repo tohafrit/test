@@ -2,6 +2,8 @@ name: Rollback
 run-name: Rollback apps by @${{ github.actor }}
 on:
   workflow_dispatch:
+env:
+  GITHUB_CONTEXT: ${{ toJson(github) }}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,11 +14,11 @@ jobs:
       - name: Get latest tag
         run: |
           git fetch --tags
-          TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
+          LAST_TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
           echo "Last tag is $TAG"
 
-      # - name: Compare tags in a specific directory
-      #   run: git diff ${{ github.event.inputs.base_tag }} ${{ github.event.inputs.compare_tag }} -- path/to/directory
+      - name: Compare tags in a specific directory
+        run: git diff ${{ github.ref_name }} $LAST_TAG -- scripts
 
       - name: Dump GitHub context
         env:
