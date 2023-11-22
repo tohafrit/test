@@ -17,10 +17,10 @@ jobs:
           TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
           echo "LAST_TAG=$TAG" >> $GITHUB_ENV
 
-      - name: Compare tags in a specific directory
-        run: git diff ${{ github.ref_name }} ${{ env.LAST_TAG }} -- scripts/
-
-      
+      - name: Count changed files in a specific directory
+        run: |
+          file_count=$(git diff ${{ github.ref_name }} ${{ env.LAST_TAG }} -- scripts/ | wc -l)
+          echo "Number of changed files: $file_count"
 
       - name: Dump GitHub context
         env:
