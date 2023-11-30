@@ -31,14 +31,18 @@ jobs:
           PREVIOUS=$(git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1))
           echo "PREVIOUS_TAG=$PREVIOUS" >> $GITHUB_ENV
 
-      - name: Get LL
+      - name: Get Last PRs
         run: |
-          echo "LL=$(git log --merges --min-parents=1 ${{ env.PREVIOUS_TAG }}..main --pretty=format:"%s" | sed -E 's/\(#([0-9]+)\)/(<https:\/\/github.com\/zogomarket\/betproduction-api\/pull\/\1|#\1>)/g')" >> $GITHUB_ENV
+          {
+            echo 'LAST_PRS<<EOF'
+            $(git log --merges --min-parents=1 ${{ env.PREVIOUS_TAG }}..main --pretty=format:"%s" | sed -E 's/\(#([0-9]+)\)/(<https:\/\/github.com\/zogomarket\/betproduction-api\/pull\/\1|#\1>)/g')
+            echo EOF
+          } >> "$GITHUB_ENV"
           
-      - name: Get PRs
+      - name: Send message
         run: |
           curl -X POST -H 'Content-type: application/json' \
-          --data '{"blocks":[{"type":"header","text":{"type":"plain_text","text":"New release ${{ github.ref_name }} - api","emoji":true}},{"type":"section","text":{"type":"mrkdwn","text":"asdf"}}]}' \
+          --data '{"blocks":[{"type":"header","text":{"type":"plain_text","text":"New release ${{ github.ref_name }} - api","emoji":true}},{"type":"section","text":{"type":"mrkdwn","text":"${{ env.LAST_PRS }}"}}]}' \
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Dump GitHub context
