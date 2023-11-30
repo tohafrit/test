@@ -38,7 +38,7 @@ jobs:
       - name: Get PRs
         run: |
           curl -X POST -H 'Content-type: application/json' \
-          --data '{"blocks":[{"type":"header","text":{"type":"plain_text","text":"New release ${{ github.ref_name }} - api","emoji":true}},{"type":"section","text":{"type":"mrkdwn","text":"$(git log --oneline --min-parents=1 ${{ env.PREVIOUS_TAG }}..main --pretty=format:"%s" | sed -E 's/\(#([0-9]+)\)/(<https:\/\/github.com\/zogomarket\/betproduction-api\/pull\/\1|#\1>)/g')"}}]}' \
+          --data '{"blocks":[{"type":"header","text":{"type":"plain_text","text":"New release ${{ github.ref_name }} - api","emoji":true}},{"type":"section","text":{"type":"mrkdwn","text":"asdf"}}]}' \
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Dump GitHub context
