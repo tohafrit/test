@@ -33,7 +33,7 @@ jobs:
         run: |
           log_output=$(git log --oneline --min-parents=1 ${{ env.PREVIOUS_TAG }}..main --pretty=format:"%s" | sed -E 's/\(#([0-9]+)\)/(#\1)\ \[PR link\]\(https:\/\/github.com\/zogomarket\/betproduction-api\/pull\/\1\)/g')
           curl -X POST -H 'Content-type: application/json' \
-          --data '{"blocks":[{"type":"header","text":{"type":"plain_text","text":"New release ${{ github.ref_name }} - api","emoji":true}},{"type":"section","text":{"type":"mrkdwn","text":"'$log_output'"}}]}' \
+          --data '{"blocks":[{"type":"header","text":{"type":"plain_text","text":"New release ${{ github.ref_name }} - api","emoji":true}},{"type":"section","text":{"type":"mrkdwn","text":$log_output}}]}' \
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Command for the future
