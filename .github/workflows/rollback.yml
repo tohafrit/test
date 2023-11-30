@@ -32,7 +32,7 @@ jobs:
       - name: Get PRs
         run: |
           log_output=$(git log --oneline --min-parents=1 ${{ env.PREVIOUS_TAG }}..main --pretty=format:"%s" | sed -E 's/\(#([0-9]+)\)/(#\1)\ \[PR link\]\(https:\/\/github.com\/zogomarket\/betproduction-api\/pull\/\1\)/g')
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"${log_output}"}' https://hooks.slack.com/services/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
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"${log_output}"}' https://hooks.slack.com/services/
 
       - name: Command for the future
         run: echo "php yii migrate/down ${{ env.MIGRATION_NUMBER }} --interactive=0"
