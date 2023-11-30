@@ -34,7 +34,7 @@ jobs:
       - name: Get Last PRs
         run: |
           echo "LAST_PRS<<EOF" >> $GITHUB_ENV
-          echo $(git log --merges --min-parents=1 ${{ env.PREVIOUS_TAG }}..main --pretty=format:"%s") >> $GITHUB_ENV
+          echo "$(git log --merges --min-parents=1 ${{ env.PREVIOUS_TAG }}..main --pretty=format:"%s")" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
           
       - name: Send message
