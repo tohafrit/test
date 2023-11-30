@@ -38,6 +38,7 @@ jobs:
             git log --merges --min-parents=1 ${{ env.PREVIOUS_TAG }}..main --pretty=format:"%s" | sed -E 's/\(#([0-9]+)\)/(<https:\/\/github.com\/zogomarket\/betproduction-api\/pull\/\1|#\1>)/g'
             echo EOF
           } >> "$GITHUB_ENV"
+        shell: bash
           
       - name: Send message
         run: |
