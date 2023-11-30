@@ -32,7 +32,7 @@ jobs:
       - name: Get LL
         run: |
           LAST_PRS=$(git log --oneline --min-parents=1 ${{ env.PREVIOUS_TAG }}..main --pretty=format:"%s" | sed -E 's/\(#([0-9]+)\)/(<https:\/\/github.com\/zogomarket\/betproduction-api\/pull\/\1|#\1>)/g')
-          echo "$LAST_PRS"
+          echo "LL: $LAST_PRS"
           echo "LL=$LAST_PRS" >> $GITHUB_ENV
           
       - name: Get PRs
