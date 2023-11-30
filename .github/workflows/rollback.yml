@@ -31,8 +31,9 @@ jobs:
 
       - name: Get LL
         run: |
-          log_output=$(git log --oneline --min-parents=1 ${{ env.PREVIOUS_TAG }}..main --pretty=format:"%s" | sed -E 's/\(#([0-9]+)\)/(#\1)\ \[PR link\]\(https:\/\/github.com\/zogomarket\/betproduction-api\/pull\/\1\)/g' | tr -d '\n')
-          echo "LL=$log_output" >> $GITHUB_ENV
+          LAST_PRS=$(git log --oneline --min-parents=1 ${{ env.PREVIOUS_TAG }}..main --pretty=format:"%s" | sed -E 's/\(#([0-9]+)\)/(<https:\/\/github.com\/zogomarket\/betproduction-api\/pull\/\1|#\1>)/g')
+          echo "$LAST_PRS"
+          echo "LL=$LAST_PRS" >> $GITHUB_ENV
           
       - name: Get PRs
         run: |
