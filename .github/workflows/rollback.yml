@@ -33,13 +33,9 @@ jobs:
 
       - name: Get Last PRs
         run: |
-          delimiter=$(openssl rand -hex 8)
-          {
-            echo "LAST_PRS<<$delimiter"
-            git log --merges --min-parents=1 ${{ env.PREVIOUS_TAG }}..main --pretty=format:"%s" | sed -E 's/\(#([0-9]+)\)/(<https:\/\/github.com\/zogomarket\/betproduction-api\/pull\/\1|#\1>)/g'
-            echo "$delimiter"
-          } >> "$GITHUB_ENV"
-        shell: bash
+          echo "LAST_PRS<<EOF" >> $GITHUB_ENV
+          echo $(git log --merges --min-parents=1 ${{ env.PREVIOUS_TAG }}..main --pretty=format:"%s" | sed -E 's/\(#([0-9]+)\)/(<https:\/\/github.com\/zogomarket\/betproduction-api\/pull\/\1|#\1>)/g') >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
           
       - name: Send message
         run: |
