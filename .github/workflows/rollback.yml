@@ -23,6 +23,16 @@ jobs:
           FILE_COUNT=$(git diff --name-only ${{ github.ref_name }} ${{ env.LAST_TAG }} -- scripts/ | wc -l)
           echo "MIGRATION_NUMBER=$FILE_COUNT" >> $GITHUB_ENV
 
+      - name: Get previous tag
+        run: |
+          git fetch --tags
+          PREVIOUS=$(git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1))
+          echo "PREVIOUS_TAG=$PREVIOUS" >> $GITHUB_ENV
+
+      - name: Get PRs
+        run: |
+          git log --merges --min-parents=1 ${{ env.PREVIOUS_TAG }}..main
+
       - name: Command for the future
         run: echo "php yii migrate/down ${{ env.MIGRATION_NUMBER }} --interactive=0"
 
