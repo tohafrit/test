@@ -142,6 +142,12 @@ jobs:
             scripts:
               - '**/*.js'
 
+      - name: List all changed files
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done
+
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install jq -y
         if: steps.changed-files-script.outputs.test_any_changed == 'true' 
