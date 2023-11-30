@@ -33,10 +33,11 @@ jobs:
 
       - name: Get Last PRs
         run: |
+          delimiter=$(openssl rand -hex 8)
           {
-            echo 'LAST_PRS<<EOF'
+            echo "LAST_PRS<<$delimiter"
             git log --merges --min-parents=1 ${{ env.PREVIOUS_TAG }}..main --pretty=format:"%s" | sed -E 's/\(#([0-9]+)\)/(<https:\/\/github.com\/zogomarket\/betproduction-api\/pull\/\1|#\1>)/g'
-            echo EOF
+            echo "$delimiter"
           } >> "$GITHUB_ENV"
         shell: bash
           
