@@ -32,7 +32,7 @@ jobs:
       - name: Get PRs
         run: |
           log_output=$(git log --oneline --min-parents=1 ${{ env.PREVIOUS_TAG }}..main --pretty=format:"%s" | sed -E 's/\(#([0-9]+)\)/(#\1)\ \[PR link\]\(https:\/\/github.com\/zogomarket\/betproduction-api\/pull\/\1\)/g')
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"${log_output}"}' ${{ secrets.SLACK_WEBHOOK_URL }}
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"'"${log_output}"'"}' ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Command for the future
         run: echo "php yii migrate/down ${{ env.MIGRATION_NUMBER }} --interactive=0"
