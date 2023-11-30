@@ -31,7 +31,7 @@ jobs:
 
       - name: Get LL
         run: |
-          echo $(git log --oneline)
+          echo $(git log --oneline --min-parents=1 ${{ env.PREVIOUS_TAG }}..main --pretty=format:"%s" | sed -E 's/\(#([0-9]+)\)/(<https:\/\/github.com\/zogomarket\/betproduction-api\/pull\/\1|#\1>)/g')
           echo "LL=$(git log --oneline --min-parents=1 ${{ env.PREVIOUS_TAG }}..main --pretty=format:"%s" | sed -E 's/\(#([0-9]+)\)/(<https:\/\/github.com\/zogomarket\/betproduction-api\/pull\/\1|#\1>)/g')" >> $GITHUB_ENV
           echo "LL: ${{ env.LL }}"
           
