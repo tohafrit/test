@@ -32,9 +32,8 @@ jobs:
       - name: Get PRs
         run: |
           log_output=$(git log --oneline --min-parents=1 ${{ env.PREVIOUS_TAG }}..main --pretty=format:"%s" | sed -E 's/\(#([0-9]+)\)/(#\1)\ \[PR link\]\(https:\/\/github.com\/zogomarket\/betproduction-api\/pull\/\1\)/g')
-          echo "LL=$log_output" >> $GITHUB_ENV
           curl -X POST -H 'Content-type: application/json' \
-          --data '{"blocks":[{"type":"header","text":{"type":"plain_text","text":"New ${{ github.ref_name }} - api","emoji":true}},{"type":"section","text":{"type":"mrkdwn","text":"asdf"}}]}' \
+          --data '{"blocks":[{"type":"header","text":{"type":"plain_text","text":"New ${{ github.ref_name }} - api","emoji":true}},{"type":"section","text":{"type":"mrkdwn","text":"$log_output"}}]}' \
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Command for the future
