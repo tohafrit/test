@@ -1,0 +1,17 @@
+name: Create new version
+run-name: Create new version by @${{ github.actor }}
+on:
+  push:
+    tags: 
+      - '*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      JENKINS_USER: ${{ secrets.JENKINS_USER }}
+
+    steps:
+      - env:
+          EVENT_CONTEXT: ${{ toJSON(github.event) }}
+        run: |
+          echo $EVENT_CONTEXT
