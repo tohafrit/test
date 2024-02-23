@@ -11,7 +11,6 @@ jobs:
       JENKINS_USER: ${{ secrets.JENKINS_USER }}
 
     steps:
-      - env:
-          EVENT_CONTEXT: ${{ toJSON(github.event) }}
+      - name: Run Jenkins job
         run: |
-          echo $EVENT_CONTEXT
+          curl -X POST -L --user ${{ env.JENKINS_USER }} https://jenkins.77dev.io/job/infra/job/create-container-ibet-api/buildWithParameters --data gitBranch='${{ github.ref }}'
